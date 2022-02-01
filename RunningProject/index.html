@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+<script src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="p5.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
+body{
+  font-family: 'IBM Plex Mono', normal;
+}
+ #myTooltip{
+ font-family: 'IBM Plex Mono', normal;
+ left:20%;
+ }
+  
+
+  
+
+</style>
+
+
+
+<!-- Create a div where the graph will take place -->
+  <title>Running Dashboard</title>
+</head>
+
+<body>
+    
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <!--<a href="#">About</a>-->
+      <!--<a href="#">Services</a>-->
+      <!--<a href="#">Clients</a>-->
+      <!--<a href="#">Contact</a>-->
+
+    </div>
+
+
+
+
+<div id="main">
+  <button class="openbtn" onclick="openNav()">☰ See More</button>  
+  <h1>Running Record 2021 </h1>
+  
+<!--Distance Section -->
+      <div class = "distance"> 
+        <h2> Total Distance of All Time</h2>
+        <div id= "totalDistance"></div>
+            <h3>equal to the distance from</h3>
+        <div id ="city1"><a href="https://www.google.com/maps/dir/Boston,+MA/New+York,+NY/@41.5309575,-73.6560739,8z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x89e3652d0d3d311b:0x787cbf240162e8a0!2m2!1d-71.0588801!2d42.3600825!1m5!1m1!1s0x89c24fa5d33f083b:0xc80b8f06e177fe62!2m2!1d-74.0059728!2d40.7127753!3e2?hl=en"> 
+        NEW YORK CITY to BOSTON</a></div>
+                    <h3>Or</h3>
+        <div id ="city2"><a href ="https://www.google.com/maps/dir/Paris,+France/Antwerp,+Belgium/@50.0327052,2.2549917,8z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x47e66e1f06e2b70f:0x40b82c3688c9460!2m2!1d2.3522219!2d48.856614!1m5!1m1!1s0x47c3f5e038389465:0x1125d409660336fc!2m2!1d4.4024615!2d51.2194496!3e2?hl=en"> 
+        PARIS to ANTWERP</a></div>
+    </div>
+    
+<div> 
+
+</div>
+
+<!--best speed -->
+        <h2> Best Speed of All Time (per KM)</h2>
+
+        <div id= "bestSpeed"></div>
+
+
+
+<!--Distance circle from P5 -->
+        <h2>Best Efforts</h2>
+        <div id ="sketch-container"></div>
+
+
+
+  <p>Click on the hamburger menu/bar icon to open the sidebar, and push this content to the right.</p>
+
+        <!-- Add 2 buttons -->
+    <div class = "buttons">
+        <button onclick="update(dataAll)">All</button>
+         <button onclick="update(data1)">April</button>
+        <button onclick="update(data2)">May</button>
+        <button onclick="update(data3)">June</button>
+          <button onclick="update(data4)">July</button>
+          <button onclick="update(data5)">August</button>
+          <button onclick="update(data6)">September</button>
+          <button onclick="update(data7)">October</button>
+          <button onclick="update(data8)">November</button>
+    </div>
+    
+    <div id="my_dataviz"></div>
+
+
+
+      <div id="content"></div>
+
+
+</div>
+
+<!--script for the bar chart-->
+
+
+<script id="jsbin-javascript">
+// create 2 data_set
+var data1 = [
+  { DAY: "24", value: 42},
+  { DAY:  "27",value: 25}
+];
+
+var data2 = [
+    {DAY:"2",value:  28},
+   {DAY: "4" ,value: 26},
+    {DAY:"12",value:  27},
+   {DAY: "14",value:  30},
+   {DAY: "15",value:  60},
+    {DAY:"18",value:  35},
+    {DAY:"19",value:  24},
+    {DAY:"20",value: 27},
+    {DAY:"22",value:   41},
+   {DAY: "25",value:     28 },
+    {DAY: "27",value:   23}
+];
+
+
+var data3 = [
+    {DAY:"1",value:  50},
+   {DAY: "5" ,value: 42},
+    {DAY:"24",value:  39},
+   {DAY: "30",value: 7} 
+];
+
+var data4 = [
+    {DAY:"3",value:  51},
+   {DAY: "4" ,value: 31},
+    {DAY:"7",value:  35},
+   {DAY: "9",value:  20},
+   {DAY: "11",value:  35},
+    {DAY:"14",value: 34},
+    {DAY:"16",value: 38},
+    {DAY:"22",value: 40},
+    {DAY:"26",value:  39},
+   {DAY: "28",value:  37},
+];
+
+var data5 = [
+    {DAY:"13",value:  26},
+   {DAY: "14" ,value: 23},
+    {DAY:"16",value:  39 },
+   {DAY: "19",value:  35},
+   {DAY: "21",value:  49},
+    {DAY:"23",value: 33},
+    {DAY:"26",value: 37 },
+    {DAY:"28",value: 42},
+    {DAY:"31",value:  33 }
+];
+
+var data6 = [
+   {DAY:"4",value:  54},
+   {DAY: "6" ,value: 36},
+    {DAY:"8",value:  29},
+   {DAY: "10",value:  51},
+   {DAY: "13",value: 37},
+    {DAY:"16",value: 43},
+    {DAY:"19",value: 33},
+    {DAY:"21",value: 20},
+    {DAY:"24",value:  34},
+    {DAY:"30",value:  33}
+
+];
+
+var data7 = [
+   {DAY:"3",value:  66},
+   {DAY: "12" ,value: 37},
+    {DAY:"17",value:  40},
+   {DAY: "18",value:  27},
+   {DAY: "21",value: 34},
+    {DAY:"28",value: 41}
+];
+
+var data8 = [
+   {DAY:"1",value:  41 },
+   {DAY: "4" ,value: 40},
+    {DAY:"6",value:  52},
+   {DAY: "10",value:  34},
+   {DAY: "12",value: 35},
+    {DAY:"14",value: 33},   
+   {DAY:"18",value: 31 },
+     {DAY:"20",value: 35}
+];
+
+var dataAll = [
+   {DAY:"April",value: 68},
+   {DAY: "May" ,value:354},
+    {DAY:"June",value: 140},
+   {DAY: "July",value: 367},
+   {DAY: "August",value: 322},
+    {DAY:"September",value: 376},   
+   {DAY:"October",value: 248},
+     {DAY:"November",value: 304}
+];
+
+
+
+// set the dimensions and margins of the graph
+var margin = {top: 150, right: 30, bottom: 20, left: 90},
+    width = 660 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// Initialize the X axis
+var x = d3.scaleBand()
+  .range([ 0, width ])
+  .padding(0.2);
+var xAxis = svg.append("g")
+  .attr("transform", "translate(0," + height + ")")
+
+// Initialize the Y axis
+var y = d3.scaleLinear()
+  .range([ height, 0]);
+var yAxis = svg.append("g")
+  .attr("class", "myYaxis")
+
+
+// A function that create / update the plot for a given variable:
+function update(data) {
+
+  // Update the X axis
+  x.domain(data.map(function(d) { return d.DAY; }))
+  xAxis.call(d3.axisBottom(x))
+
+  // Update the Y axis
+  y.domain([0, d3.max(data, function(d) { return d.value }) ]);
+  yAxis.transition().duration(1000).call(d3.axisLeft(y));
+
+  // Create the u variable
+  var u = svg.selectAll("rect")
+    .data(data)
+
+  u
+    .enter()
+    .append("a")
+    // .attr("xlink:href", function(d) {return "http://somelink.com/link.php?id=" + d.value*100;})
+     .attr("xlink:href", function(d) {return "All_map.html";})
+
+    .append("rect") // Add a new rect for each new elements
+    .on("mouseover", onMouseOver)
+    .on("mouseout", onMouseOut)
+    .merge(u) // get the already existing elements as well
+    .transition() // and apply changes to all of them
+    .duration(1000)
+      .attr("x", function(d) { return x(d.DAY); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d.value) ; })
+      .attr("fill", "#FC5204")
+
+  // If less group in the new dataset, I delete the ones not in use anymore
+  u
+    .exit()
+    .remove()
+}
+
+update(dataAll)
+
+ // Create tooltip
+
+
+var toolTipDiv = d3.select("#my_dataviz").append("div")   
+                .attr("id", "myTooltip")               
+                .style("opacity", 0);
+                
+
+           
+// mouse over function
+function onMouseOver(d){
+
+    var tooltipDiv = d3.select("#myTooltip"); 
+
+    tooltipDiv.transition()        
+       .duration(200)      
+       .style("opacity", 1)
+
+    tooltipDiv.html('Running Time  : '+ d.value + ' minutes')
+       .style("left", (parseFloat(widthScale(d)))- 17  + "px") 
+       .style("cursor", "pointer")
+       .style("top", function(d){
+           return d3.event.pageY - this.offsetHeight - 17  + "px"
+        })
+        .style("color", "#333333");        
+}
+
+function onMouseOut(d){
+    var tooltipDiv = d3.select("#myTooltip"); 
+    tooltipDiv.transition()        
+          .duration(500)      
+          .style("opacity", 0);  
+}
+
+
+</script>
+<!--loading the side bar window-->
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "750px";
+  document.getElementById("main").style.marginLeft = "750px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+
+<!--loading another html file-->
+
+<script>
+// function ready(){
+//     document.getElementById("content").load("All_map.html");
+// };
+
+
+
+var iframe = document.createElement('iframe');
+// var html = '<body>Foo</body>';
+iframe.src = 'All_map.html';
+document.getElementById("mySidebar").appendChild(iframe);
+console.log('iframe.contentWindow =', iframe.contentWindow);
+
+
+</script>
+
+<script src="test.js"></script>
+
+ <script>
+ // script for  p5 elements
+ 
+ var best1k = 4.08;
+ var best1mile = 7.14;
+ var best5k = 26.17;
+  var best10k = 90.54;
+
+
+
+function setup() {
+    
+  let canvas = createCanvas(600, 800);
+  canvas.parent('sketch-container');
+}
+
+function draw() {
+  background(255);
+  noStroke();
+  fill(255);
+  if (mouseY < height * 0.33) {
+    let c = color('magenta');
+    fill(c);
+    noStroke();
+    ellipse(300, 66, best1k*5, best1k*5);  
+    text('Best 1K : '+best1k + ' minutes', 240, 100);
+  }
+  else if (mouseY < height * 0.67) {
+    let c = color(5,21,252);
+    fill(c);
+    noStroke();
+    ellipse(300, 200, best1mile*5, best1mile*5);
+    text('Best 1 Mile : '+best1mile + ' minutes', 240, 250);
+
+  }
+ else if (mouseY < height * 0.99) {
+    let c = color(5,21,252);
+    fill(c);
+    noStroke();
+    ellipse(300, 333, best5k*5, best5k*5);
+    text('Best 5K : '+best5k + ' minutes', 240, 450);
+  }
+  else {
+    let c = color(253,114,4);
+    fill(c);
+    noStroke();
+    ellipse(300, 466, best10k*5, best10k*5);
+    text('Best 10K : '+best10k + ' minutes', 240, 750);
+
+  }
+}
+
+        </script>
+
+
+
+
+
+
+</body>
+</html>

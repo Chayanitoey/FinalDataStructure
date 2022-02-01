@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Running Therapy</title>
+    <meta name="description" content="The (personal) Data Journal Project" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
+
+      #scrolly {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        background-color: #FC5204;
+        padding: 1rem;
+        top: 586px;
+      }
+
+      #scrolly > * {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+      }
+
+      article {
+        position: relative;
+        padding: 0 1rem;
+        max-width: 35rem;
+      }
+
+      figure {
+        position: -webkit-sticky;
+        position: sticky;
+        width: 100%;
+        margin: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        background-color: #FC5204;
+        z-index: 0;
+      }
+
+      figure p {
+        text-align: center;
+        padding: 1rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        font-size: 8rem;
+        font-weight: 900;
+        color: #fff;
+      }
+
+      .step {
+        margin: 0 auto 2rem auto;
+        /*background-color: #3b3b3b;*/
+        /*color: #fff;*/
+        background: #FC5204;
+
+      }
+
+      .step:last-child {
+        margin-bottom: 0;
+      }
+
+      .step.is-active {
+        background-color: #FC5204;
+        /*color: #3b3b3b;*/
+      }
+
+      .step p {
+        /*text-align: center;*/
+        position: absolute;
+        width: 70%;
+        left: 5%;
+        /*top: 586px;*/
+
+
+        padding: 1rem;
+        font-size: 1rem;
+                
+        font-family: IBM Plex Mono;
+        font-style: normal;
+        font-weight: lighter;
+        /*font-size: 18px;*/
+        line-height: 2rem;
+        text-align: center;
+        
+        color: #FFFCFC;
+
+      }
+    </style>
+  </head>
+
+  <body style="background: #FC5204">
+    <main>
+      <nav>
+
+        <div class="nav__examples">
+          <div class ="nav__example1"> 
+          <a href="https://russellgoldenberg.github.io/scrollama/basic">
+              About this project</a
+          ></div>
+          <div class ="nav__example2"> 
+          <a href="https://russellgoldenberg.github.io/scrollama/progress"
+            >View on Github</a
+          ></div>
+        </div>
+      </nav>
+      <section id="intro">
+        <img class="image1" src="assets/icon_running.png"></img>
+        <h1 class="intro_head">Running Therapy </h1>
+        <h2 class="intro_head2">A Data Journal Project</h2>
+        <h3 class="intro_head3">By Chayanit Thawaranont</h3>
+
+      </section>
+
+      <section id="scrolly">
+        <article>
+          <div class="step" data-step="1">
+            <p>Since the beginning of the pandemic, I started to go running twice a week or more to articulate my thoughts about life while maintaining my mental sanity also to help myself going through the unprecendeted global crisis. 
+<br><br>
+Running has basically been my ‘therepy’ since then, plus it’s free and widely accessible.</p>
+          </div>
+          <div class="step" data-step="2">
+            <p>Everytime I go running, I always keep track of my performance. It’s really just for fun. 
+....
+ (ok, fine, I admit it, it's partly a flex.) </p>
+          </div>
+          <div class="step" data-step="3">
+            <p>Thanks to STRAVA ( Not a paid partnership but I’m a fan of this app) 
+I was able to extract my metadata of what I have run in the past year and analyzed the data into a mega analysis project for Data Structure Course at Parsons (see more details here: ) </p>
+          </div>
+          <div class="step" data-step="4">
+            <p>Based on the data I had, I decided to  decode my performance to see it clearer. It’s reallyyyyy important for me to be well-awared of my performance and see my limitations or roadblocks I had since I am planning to run a half-marathon next year.  </p>
+          </div>
+          
+           <div class="step" data-step="5">
+            <p>WHAT I NEED TO SEE : ** <br>
+               PACE VS DISTANCE (overtime)<br>
+               TIME VS LAP<br>
+                ROUTE  VS TIME 
+                <br><br>
+                    **I will explain in details later below. 
+                </p>
+                
+          </div>
+          
+           <div class="step" data-step="6">
+            <p>On the right side, you can play with the data charts I have. 
+<br>Try to analyze it, see if you can find some insights...</p>
+          </div>
+          
+           <div class="step" data-step="7">
+            <p>Thank you for reading this journal, it’s been a pleasure that you joined / read this personal tear sweating journey.
+            
+            <br><br>
+            If you are interested in using what I have done here to your strava’s metadata, feel free to reach out at chayanit@newschool.edu or checkout my code on github. 
+            
+            <br><br>
+            For more of the interactive dashboard here you go >> DASHBOARD. 
+
+            </p>
+          </div>
+          
+           
+          
+        </article>
+
+        <figure>
+          <p>0</p>
+        </figure>
+      </section>
+
+      <section id="outro"></section>
+    </main>
+
+    <!-- <div class='debug'></div> -->
+    <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+    <script src="scrollama/stickyfill.min.js"></script>
+    <script src="scrollama/scrollama.min.js"></script>
+    <script>
+      // using d3 for convenience
+      var main = d3.select("main");
+      var scrolly = main.select("#scrolly");
+      var figure = scrolly.select("figure");
+      var article = scrolly.select("article");
+      var step = article.selectAll(".step");
+
+      // initialize the scrollama
+      var scroller = scrollama();
+
+      // generic window resize listener event
+      function handleResize() {
+        // 1. update height of step elements
+        var stepH = Math.floor(window.innerHeight * 0.75);
+        step.style("height", stepH + "px");
+
+        var figureHeight = window.innerHeight / 2;
+        var figureMarginTop = (window.innerHeight - figureHeight) / 2;
+
+        figure
+          .style("height", figureHeight + "px")
+          .style("top", figureMarginTop + "px");
+
+        // 3. tell scrollama to update new element dimensions
+        scroller.resize();
+      }
+
+      // scrollama event handlers
+      function handleStepEnter(response) {
+        console.log(response);
+        // response = { element, direction, index }
+
+        // add color to current step only
+        step.classed("is-active", function(d, i) {
+          return i === response.index;
+        });
+
+        // update graphic based on step
+        figure.select("p").text(response.index + 1);
+      }
+
+      function setupStickyfill() {
+        d3.selectAll(".sticky").each(function() {
+          Stickyfill.add(this);
+        });
+      }
+
+      function init() {
+        setupStickyfill();
+
+        // 1. force a resize on load to ensure proper dimensions are sent to scrollama
+        handleResize();
+
+        // 2. setup the scroller passing options
+        // 		this will also initialize trigger observations
+        // 3. bind scrollama event handlers (this can be chained like below)
+        scroller
+          .setup({
+            step: "#scrolly article .step",
+            offset: 0.33,
+            debug: false
+          })
+          .onStepEnter(handleStepEnter);
+
+        // setup resize event
+        window.addEventListener("resize", handleResize);
+      }
+
+      // kick things off
+      init();
+    </script>
+  </body>
+</html>
